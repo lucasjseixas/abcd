@@ -1,0 +1,54 @@
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Editor
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+.env
+.venv/
+venv/
+pip-log.txt
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+target/
+*.iml
+
+# OS
+*.swp
+*~
+*.bak
+
+# Git
+*.orig
+
+# Test Coverage
+coverage/
+*.lcov
+
+# Logs
+logs/
+*.log

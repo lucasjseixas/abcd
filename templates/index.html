@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>AgroIA - Plataforma Inteligente</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>AgroIA - Plataforma Inteligente</h1>
+    <div class="container">
+        <!-- Seção 1: Chat IA -->
+        <section id="chat-ia">
+            <h2>Pergunte à IA</h2>
+            <input type="text" id="pergunta" placeholder="Digite sua pergunta...">
+            <button onclick="enviarPergunta()">Pergunte à IA</button>
+            <div id="resposta-ia"></div>
+        </section>
+        <hr>
+        <!-- Seção 2: Widgets de Preços e Notícias Agrícolas -->
+        <section id="widgets-agricolas">
+            <h2>Informações Agrícolas</h2>
+            <div class="widgets-container">
+                <!-- Widget de Preços -->
+                <div class="widget-section">
+                    <h3>Consulta de Preços Agrícolas</h3>
+                    <div class="botoes-categoria">
+                        <button onclick="carregarWidget(55, 'Algodão')" class="btn-categoria">Algodão</button>
+                        <button onclick="carregarWidget(167, 'Arroz')" class="btn-categoria">Arroz</button>
+                        <button onclick="carregarWidget(250, 'Café - Arábica')" class="btn-categoria">Café - Arábica</button>
+                        <button onclick="carregarWidget(251, 'Milho')" class="btn-categoria">Milho</button>
+                        <button onclick="carregarWidget(78, 'Trigo')" class="btn-categoria">Trigo</button>
+                    </div>
+                    <div id="widget-container">
+                        <div id="widget-placeholder">Selecione uma categoria para ver os preços</div>
+                    </div>
+                </div>
+                
+                <!-- Widget de Notícias -->
+                <div class="widget-section">
+                    <h3>Últimas Notícias Agrícolas</h3>
+                    <div id="widget-noticias">
+                        <!-- Widgets Notícias Agrícolas - www.noticiasagricolas.com.br/widgets -->
+                        <script type="text/javascript" src="https://www.noticiasagricolas.com.br/widgets/noticias?subsecao=2,3,162,6,7,8,10,64,80,85,146,5,4,11,160,12,156,40,158,60,13,163,97,14,95,205,15,1,155,84,28,212,149,26,69,90,62,27,92,148,154,32,67,101,102,103,105,207,106,107,108,109,213,147,206,110,111,112,113,159,114,157,115,116,210,68,164,117,118,119,214,204,211,120,121,203,166&largura=300px&altura=250px&fonte=Arial%2C%20Helvetica%2C%20sans-serif&tamanho=10pt&cortexto=333333&corlink=006666&qtd=15&output=js"></script>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr>
+        <!-- Seção 4: Análise de Sentimento de Notícias -->
+        <section id="sentimento-noticias">
+            <h2>Análise de Sentimento de Notícias</h2>
+            <label for="termo-noticia">Termo para busca em inglês (ex: Soy, corn, cotton, wheat, etc.):</label>
+            <input type="text" id="termo-noticia" placeholder="Digite o termo em inglês...">
+            <button onclick="buscarNoticiasSentimento()">Buscar e Analisar</button>
+            <div id="resultado-noticias"></div>
+        </section>
+    </div>
+    <script>
+        function enviarPergunta() {
+            const pergunta = document.getElementById('pergunta').value;
+            fetch('/ask_ia', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({question: pergunta})
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('resposta-ia').innerText = data.answer;
+            });
+        }
+        function analisarSentimento() {}
+        function buscarNoticiasSentimento() {
+            const termo = document.getElementById('termo-noticia').value;
+            const resultadoDiv = document.getElementById('resultado-noticias');
+            resultadoDiv.innerHTML = 'Buscando notícias e analisando...';
+            fetch('/sentimento_noticias', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({termo: termo})
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.resultados && data.resultados.length > 0) {
+                    let html = '<table style="width:100%;border-collapse:collapse;">';
+                    html += '<tr><th style="border:1px solid #ccc;padding:8px;">Título</th><th style="border:1px solid #ccc;padding:8px;">Trecho</th><th style="border:1px solid #ccc;padding:8px;">Sentimento</th></tr>';
+                    data.resultados.forEach(noticia => {
+                        html += `<tr><td style='border:1px solid #ccc;padding:8px;'>${noticia.title}</td><td style='border:1px solid #ccc;padding:8px;'>${noticia.snippet}</td><td style='border:1px solid #ccc;padding:8px;'>${noticia.sentimento}</td></tr>`;
+                    });
+                    html += '</table>';
+                    resultadoDiv.innerHTML = html;
+                } else {
+                    resultadoDiv.innerHTML = 'Nenhuma notícia encontrada ou erro na busca.';
+                }
+            })
+            .catch(() => {
+                resultadoDiv.innerHTML = 'Erro ao buscar notícias ou analisar sentimento.';
+            });
+        }
+        function carregarWidget(id, categoria) {
+            const container = document.getElementById('widget-container');
+            const placeholder = document.getElementById('widget-placeholder');
+            
+            // Limpar container
+            container.innerHTML = '';
+            
+            // Criar iframe para o widget
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.noticiasagricolas.com.br/widgets/cotacoes?id=${id}&fonte=Arial%2C%20Helvetica%2C%20sans-serif&tamanho=10pt&largura=400px&cortexto=333333&corcabecalho=B2C3C6&corlinha=DCE7E9&imagem=true&output=html`;
+            iframe.width = '100%';
+            iframe.height = '400';
+            iframe.frameBorder = '0';
+            iframe.style.border = 'none';
+            iframe.style.borderRadius = '8px';
+            
+            // Adicionar iframe ao container
+            container.appendChild(iframe);
+            
+            // Mostrar categoria selecionada
+            const titulo = document.createElement('h3');
+            titulo.textContent = `Preços de ${categoria}`;
+            titulo.style.marginBottom = '10px';
+            titulo.style.color = '#2e7d32';
+            container.insertBefore(titulo, iframe);
+        }
+    </script>
+</body>
+</html> 
