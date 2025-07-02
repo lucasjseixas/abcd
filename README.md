@@ -28,6 +28,8 @@ python-dotenv
 requests
 huggingface_hub
 
+Depois execute a linha: pip install -r requirements.txt
+
 <p>4. Crie um arquivo .env</p>
 
 Crie um arquivo .env na <strong>raiz</strong> do projeto com as suas chaves:
