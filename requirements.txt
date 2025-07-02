@@ -2,3 +2,7 @@ flask
 python-dotenv
 requests
 huggingface_hub
+pandas
+numpy
+matplotlib
+seaborn

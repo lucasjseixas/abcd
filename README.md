@@ -1,7 +1,5 @@
 # Flask AI App
 
-Este projeto é uma aplicação Python com Flask que consome APIs externas como Hugging Face, SerpAPI e Google Gemini. Ele utiliza variáveis de ambiente para armazenar chaves de API com segurança usando `python-dotenv`.
-
 ## Requisitos
 
 - Python 3.8+
@@ -18,8 +16,9 @@ cd abcd
 
 2. Crie um ambiente virtual
 
-python -m venv venv
-source venv/bin/activate  # No Windows: venv\Scripts\activate
+# python -m venv venv
+# source venv/bin/activate  
+# No Windows: venv\Scripts\activate
 
 3. Instale as dependências
 Crie um arquivo <strong>requirements.txt</strong> com o seguinte conteúdo:
