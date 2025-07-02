@@ -14,13 +14,13 @@ git clone https://github.com/lucasjseixas/abcd.git
 cd abcd
 
 
-2. Crie um ambiente virtual
+<p>2. Crie um ambiente virtual</p>
 
 # python -m venv venv
 # source venv/bin/activate  
 # No Windows: venv\Scripts\activate
 
-3. Instale as dependências
+<p>3. Instale as dependências</p>
 Crie um arquivo <strong>requirements.txt</strong> com o seguinte conteúdo:
 
 flask
@@ -28,7 +28,7 @@ python-dotenv
 requests
 huggingface_hub
 
-4. Crie um arquivo .env
+<p>4. Crie um arquivo .env</p>
 
 Crie um arquivo .env na <strong>raiz</strong> do projeto com as suas chaves:
 
@@ -42,7 +42,7 @@ python app.py
 
 Abrir o browser no endereço http://127.0.0.1:5000
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 Como obter suas chaves de API:
 
 🔹Hugging Face
