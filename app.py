@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-load_dotenv()
 from flask import Flask, render_template, request, jsonify
 import os
 import requests
@@ -11,6 +10,7 @@ import seaborn as sns
 import io
 import base64
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+load_dotenv()
 
 app = Flask(__name__)
 
