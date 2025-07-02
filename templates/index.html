@@ -3,125 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <title>AgroIA - Plataforma Inteligente</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sage': {
+                            50: '#f6f8f6',
+                            100: '#e8f0e8',
+                            200: '#d3e4d3',
+                            300: '#b2d1b2',
+                            400: '#8cb88c',
+                            500: '#6b9f6b',
+                            600: '#568056',
+                        },
+                        'lavender': {
+                            50: '#f8f7ff',
+                            100: '#ede9ff',
+                            200: '#ddd7ff',
+                            300: '#c5b8ff',
+                            400: '#a691ff',
+                            500: '#8b6bff',
+                        },
+                        'peach': {
+                            50: '#fff7f5',
+                            100: '#ffede8',
+                            200: '#ffddd4',
+                            300: '#ffc3b3',
+                            400: '#ff9d82',
+                            500: '#ff7851',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-fadeInUp { animation: fadeInUp 0.6s ease-out; }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #8b6bff, #6b9f6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glow-button {
+            box-shadow: 0 4px 15px 0 rgba(139, 107, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .glow-button:hover {
+            box-shadow: 0 8px 25px 0 rgba(139, 107, 255, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
-<body>
-    <h1>AgroIA - Plataforma Inteligente</h1>
-    <div class="container">
-        <!-- Seção 1: Chat IA -->
-        <section id="chat-ia">
-            <h2>Pergunte à IA</h2>
-            <input type="text" id="pergunta" placeholder="Digite sua pergunta...">
-            <button onclick="enviarPergunta()">Pergunte à IA</button>
-            <div id="resposta-ia"></div>
-        </section>
-        <hr>
-        <!-- Seção 2: Widgets de Preços e Notícias Agrícolas -->
-        <section id="widgets-agricolas">
-            <h2>Informações Agrícolas</h2>
-            <div class="widgets-container">
-                <!-- Widget de Preços -->
-                <div class="widget-section">
-                    <h3>Consulta de Preços Agrícolas</h3>
-                    <div class="botoes-categoria">
-                        <button onclick="carregarWidget(55, 'Algodão')" class="btn-categoria">Algodão</button>
-                        <button onclick="carregarWidget(167, 'Arroz')" class="btn-categoria">Arroz</button>
-                        <button onclick="carregarWidget(250, 'Café - Arábica')" class="btn-categoria">Café - Arábica</button>
-                        <button onclick="carregarWidget(251, 'Milho')" class="btn-categoria">Milho</button>
-                        <button onclick="carregarWidget(78, 'Trigo')" class="btn-categoria">Trigo</button>
+<body class="bg-gradient-to-br from-sage-50 via-lavender-50 to-peach-50 min-h-screen font-sans">
+    <!-- Navbar -->
+    <nav class="glass-effect sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-r from-lavender-400 to-sage-400 rounded-xl flex items-center justify-center animate-float">
+                    <i class="fas fa-seedling text-white text-lg"></i>
+                </div>
+                <h1 class="text-2xl font-bold gradient-text">AgroIA</h1>
+            </div>
+            
+            <div class="flex items-center space-x-6">
+                <a href="#" class="text-gray-600 hover:text-lavender-500 transition-colors duration-300">
+                    <i class="fab fa-discord text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-600 hover:text-sage-500 transition-colors duration-300">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-600 hover:text-peach-400 transition-colors duration-300">
+                    <i class="fab fa-linkedin text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Hero Section -->
+        <div class="text-center mb-16 animate-fadeInUp">
+            <h1 class="text-5xl md:text-7xl font-bold gradient-text mb-6 tracking-tight">
+                Plataforma Inteligente 🤖
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Revolucione sua agricultura com inteligência artificial avançada
+            </p>
+        </div>
+
+        <!-- AI Chat Section -->
+        <section class="mb-16 animate-fadeInUp">
+            <div class="glass-effect rounded-3xl p-8 md:p-12">
+                <div class="flex items-center mb-8">
+                    <div class="w-12 h-12 bg-gradient-to-r from-lavender-400 to-peach-400 rounded-2xl flex items-center justify-center mr-4">
+                        <i class="fas fa-robot text-white text-xl"></i>
                     </div>
-                    <div id="widget-container">
-                        <div id="widget-placeholder">Selecione uma categoria para ver os preços</div>
-                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800">Assistente IA</h2>
                 </div>
                 
-                <!-- Widget de Notícias -->
-                <div class="widget-section">
-                    <h3>Últimas Notícias Agrícolas</h3>
-                    <div id="widget-noticias">
-                        <!-- Widgets Notícias Agrícolas - www.noticiasagricolas.com.br/widgets -->
-                        <script type="text/javascript" src="https://www.noticiasagricolas.com.br/widgets/noticias?subsecao=2,3,162,6,7,8,10,64,80,85,146,5,4,11,160,12,156,40,158,60,13,163,97,14,95,205,15,1,155,84,28,212,149,26,69,90,62,27,92,148,154,32,67,101,102,103,105,207,106,107,108,109,213,147,206,110,111,112,113,159,114,157,115,116,210,68,164,117,118,119,214,204,211,120,121,203,166&largura=300px&altura=250px&fonte=Arial%2C%20Helvetica%2C%20sans-serif&tamanho=10pt&cortexto=333333&corlink=006666&qtd=15&output=js"></script>
+                <div class="flex flex-col lg:flex-row gap-6 items-end mb-8">
+                    <div class="flex-1">
+                        <input type="text" id="pergunta" placeholder="Como posso ajudar com sua agricultura hoje?" 
+                               class="w-full px-6 py-4 rounded-2xl border-2 border-sage-200 focus:border-lavender-400 focus:ring-4 focus:ring-lavender-100 transition-all duration-300 text-lg placeholder:text-gray-400 bg-white/80">
+                    </div>
+                    <button onclick="enviarPergunta()" 
+                            class="bg-gradient-to-r from-lavender-400 to-sage-400 hover:from-lavender-500 hover:to-sage-500 text-white font-semibold px-8 py-4 rounded-2xl glow-button transition-all duration-300">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Perguntar
+                    </button>
+                </div>
+                
+                <div id="resposta-ia" class="bg-white/60 border border-sage-200 rounded-2xl p-6 min-h-[80px] text-gray-700 leading-relaxed shadow-inner">
+                    <div class="flex items-center text-gray-500">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        Faça sua pergunta para receber insights inteligentes
                     </div>
                 </div>
             </div>
         </section>
-        <hr>
-        <!-- Seção 4: Análise de Sentimento de Notícias -->
-        <section id="sentimento-noticias">
-            <h2>Análise de Sentimento de Notícias</h2>
-            <label for="termo-noticia">Termo para busca em inglês (ex: Soy, corn, cotton, wheat, etc.):</label>
-            <input type="text" id="termo-noticia" placeholder="Digite o termo em inglês...">
-            <button onclick="buscarNoticiasSentimento()">Buscar e Analisar</button>
-            <div id="resultado-noticias"></div>
+
+        <!-- Information Grid -->
+        <section class="mb-16">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                <!-- Price Widget -->
+                <div class="glass-effect rounded-3xl p-8 animate-fadeInUp">
+                    <div class="flex items-center mb-8">
+                        <div class="w-12 h-12 bg-gradient-to-r from-sage-400 to-peach-400 rounded-2xl flex items-center justify-center mr-4">
+                            <i class="fas fa-chart-line text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Cotações Agrícolas</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
+                        <button onclick="carregarWidget(55, 'Algodão')" 
+                                class="bg-gradient-to-r from-sage-300 to-sage-400 hover:from-sage-400 hover:to-sage-500 text-white py-3 px-4 rounded-xl font-medium shadow-lg transition-all duration-300 hover:scale-105">
+                            <i class="fas fa-seedling mr-2"></i>Algodão
+                        </button>
+                        <button onclick="carregarWidget(167, 'Arroz')" 
+                                class="bg-gradient-to-r from-lavender-300 to-lavender-400 hover:from-lavender-400 hover:to-lavender-500 text-white py-3 px-4 rounded-xl font-medium shadow-lg transition-all duration-300 hover:scale-105">
+                            <i class="fas fa-leaf mr-2"></i>Arroz
+                        </button>
+                        <button onclick="carregarWidget(250, 'Café - Arábica')" 
+                                class="bg-gradient-to-r from-peach-300 to-peach-400 hover:from-peach-400 hover:to-peach-500 text-white py-3 px-4 rounded-xl font-medium shadow-lg transition-all duration-300 hover:scale-105">
+                            <i class="fas fa-coffee mr-2"></i>Café
+                        </button>
+                        <button onclick="carregarWidget(251, 'Milho')" 
+                                class="bg-gradient-to-r from-sage-400 to-lavender-400 hover:from-sage-500 hover:to-lavender-500 text-white py-3 px-4 rounded-xl font-medium shadow-lg transition-all duration-300 hover:scale-105">
+                            <i class="fas fa-corn mr-2"></i>Milho
+                        </button>
+                        <button onclick="carregarWidget(78, 'Trigo')" 
+                                class="bg-gradient-to-r from-lavender-400 to-peach-400 hover:from-lavender-500 hover:to-peach-500 text-white py-3 px-4 rounded-xl font-medium shadow-lg transition-all duration-300 hover:scale-105">
+                            <i class="fas fa-wheat-awn mr-2"></i>Trigo
+                        </button>
+                    </div>
+                    
+                    <div id="widget-container" class="bg-white/60 border border-sage-200 rounded-2xl p-6 min-h-[400px] shadow-inner">
+                        <div id="widget-placeholder" class="flex flex-col items-center justify-center h-full text-gray-500 py-16">
+                            <i class="fas fa-chart-bar text-4xl mb-4 opacity-50"></i>
+                            <p class="text-lg">Selecione uma commodity para visualizar as cotações</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Widget -->
+                <div class="glass-effect rounded-3xl p-8 animate-fadeInUp">
+                    <div class="flex items-center mb-8">
+                        <div class="w-12 h-12 bg-gradient-to-r from-peach-400 to-lavender-400 rounded-2xl flex items-center justify-center mr-4">
+                            <i class="fas fa-newspaper text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Últimas Notícias</h3>
+                    </div>
+                    
+                    <div id="widget-noticias" class="bg-white/60 border border-peach-200 rounded-2xl p-6 min-h-[400px] shadow-inner">
+                        <script type="text/javascript" src="https://www.noticiasagricolas.com.br/widgets/noticias?subsecao=2,3,162,6,7,8,10,64,80,85,146,5,4,11,160,12,156,40,158,60,13,163,97,14,95,205,15,1,155,84,28,212,149,26,69,90,62,27,92,148,154,32,67,101,102,103,105,207,106,107,108,109,213,147,206,110,111,112,113,159,114,157,115,116,210,68,164,117,118,119,214,204,211,120,121,203,166&largura=100%&altura=350px&fonte=Arial%2C%20Helvetica%2C%20sans-serif&tamanho=12pt&cortexto=374151&corlink=8b6bff&qtd=15&output=js"></script>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sentiment Analysis Section -->
+        <section class="animate-fadeInUp">
+            <div class="glass-effect rounded-3xl p-8 md:p-12">
+                <div class="flex items-center mb-8">
+                    <div class="w-12 h-12 bg-gradient-to-r from-sage-400 to-lavender-400 rounded-2xl flex items-center justify-center mr-4">
+                        <i class="fas fa-brain text-white text-xl"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800">Análise de Sentimento</h2>
+                </div>
+                
+                <p class="text-gray-600 mb-6 text-lg">
+                    Analise o sentimento das notícias sobre commodities agrícolas em tempo real
+                </p>
+                
+                <div class="flex flex-col lg:flex-row gap-6 items-end mb-8">
+                    <div class="flex-1">
+                        <label for="termo-noticia" class="block mb-3 text-gray-700 font-medium">
+                            Termo para busca (em inglês):
+                        </label>
+                        <input type="text" id="termo-noticia" placeholder="Ex: soy, corn, cotton, wheat..." 
+                               class="w-full px-6 py-4 rounded-2xl border-2 border-sage-200 focus:border-lavender-400 focus:ring-4 focus:ring-lavender-100 transition-all duration-300 text-lg placeholder:text-gray-400 bg-white/80">
+                    </div>
+                    <button onclick="buscarNoticiasSentimento()" 
+                            class="bg-gradient-to-r from-sage-400 to-lavender-400 hover:from-sage-500 hover:to-lavender-500 text-white font-semibold px-8 py-4 rounded-2xl glow-button transition-all duration-300">
+                        <i class="fas fa-search mr-2"></i>
+                        Analisar
+                    </button>
+                </div>
+                
+                <div id="resultado-noticias" class="bg-white/60 border border-sage-200 rounded-2xl p-6 min-h-[80px] shadow-inner">
+                    <div class="flex items-center text-gray-500">
+                        <i class="fas fa-analytics mr-2"></i>
+                        Digite um termo para analisar o sentimento das notícias relacionadas
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
+
     <script>
         function enviarPergunta() {
             const pergunta = document.getElementById('pergunta').value;
+            const resposta = document.getElementById('resposta-ia');
+            
+            if (!pergunta.trim()) return;
+            
+            resposta.innerHTML = '<div class="flex items-center"><i class="fas fa-spinner fa-spin mr-2"></i>Processando sua pergunta...</div>';
+            
             fetch('/ask_ia', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({question: pergunta})
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: pergunta })
             })
             .then(res => res.json())
             .then(data => {
-                document.getElementById('resposta-ia').innerText = data.answer;
+                resposta.innerHTML = `<div class="flex items-start"><i class="fas fa-robot text-lavender-500 mr-3 mt-1"></i><div>${data.answer}</div></div>`;
+            })
+            .catch(() => {
+                resposta.innerHTML = '<div class="flex items-center text-red-500"><i class="fas fa-exclamation-triangle mr-2"></i>Erro ao processar pergunta. Tente novamente.</div>';
             });
         }
-        function analisarSentimento() {}
+
         function buscarNoticiasSentimento() {
             const termo = document.getElementById('termo-noticia').value;
             const resultadoDiv = document.getElementById('resultado-noticias');
-            resultadoDiv.innerHTML = 'Buscando notícias e analisando...';
+            
+            if (!termo.trim()) return;
+            
+            resultadoDiv.innerHTML = '<div class="flex items-center"><i class="fas fa-spinner fa-spin mr-2"></i>Buscando e analisando notícias...</div>';
+            
             fetch('/sentimento_noticias', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({termo: termo})
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ termo: termo })
             })
             .then(res => res.json())
             .then(data => {
                 if (data.resultados && data.resultados.length > 0) {
-                    let html = '<table style="width:100%;border-collapse:collapse;">';
-                    html += '<tr><th style="border:1px solid #ccc;padding:8px;">Título</th><th style="border:1px solid #ccc;padding:8px;">Trecho</th><th style="border:1px solid #ccc;padding:8px;">Sentimento</th></tr>';
-                    data.resultados.forEach(noticia => {
-                        html += `<tr><td style='border:1px solid #ccc;padding:8px;'>${noticia.title}</td><td style='border:1px solid #ccc;padding:8px;'>${noticia.snippet}</td><td style='border:1px solid #ccc;padding:8px;'>${noticia.sentimento}</td></tr>`;
+                    let html = '<div class="overflow-x-auto"><table class="w-full border-collapse bg-white rounded-xl overflow-hidden shadow-lg">';
+                    html += '<thead><tr class="bg-gradient-to-r from-sage-100 to-lavender-100"><th class="border-b border-gray-200 px-6 py-4 text-left font-semibold text-gray-700">Título</th><th class="border-b border-gray-200 px-6 py-4 text-left font-semibold text-gray-700">Trecho</th><th class="border-b border-gray-200 px-6 py-4 text-left font-semibold text-gray-700">Sentimento</th></tr></thead><tbody>';
+                    data.resultados.forEach((noticia, index) => {
+                        const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+                        html += `<tr class="${bgClass} hover:bg-sage-50 transition-colors"><td class='border-b border-gray-100 px-6 py-4'>${noticia.title}</td><td class='border-b border-gray-100 px-6 py-4 text-sm text-gray-600'>${noticia.snippet}</td><td class='border-b border-gray-100 px-6 py-4'><span class="px-3 py-1 rounded-full text-sm font-medium ${getSentimentClass(noticia.sentimento)}">${noticia.sentimento}</span></td></tr>`;
                     });
-                    html += '</table>';
+                    html += '</tbody></table></div>';
                     resultadoDiv.innerHTML = html;
                 } else {
-                    resultadoDiv.innerHTML = 'Nenhuma notícia encontrada ou erro na busca.';
+                    resultadoDiv.innerHTML = '<div class="flex items-center text-gray-500"><i class="fas fa-info-circle mr-2"></i>Nenhuma notícia encontrada para este termo.</div>';
                 }
             })
             .catch(() => {
-                resultadoDiv.innerHTML = 'Erro ao buscar notícias ou analisar sentimento.';
+                resultadoDiv.innerHTML = '<div class="flex items-center text-red-500"><i class="fas fa-exclamation-triangle mr-2"></i>Erro ao buscar notícias. Tente novamente.</div>';
             });
         }
+
+        function getSentimentClass(sentimento) {
+            if (sentimento.toLowerCase().includes('positive') || sentimento.toLowerCase().includes('positivo')) {
+                return 'bg-green-100 text-green-800';
+            } else if (sentimento.toLowerCase().includes('negative') || sentimento.toLowerCase().includes('negativo')) {
+                return 'bg-red-100 text-red-800';
+            } else {
+                return 'bg-gray-100 text-gray-800';
+            }
+        }
+
         function carregarWidget(id, categoria) {
             const container = document.getElementById('widget-container');
             const placeholder = document.getElementById('widget-placeholder');
-            
-            // Limpar container
+
+            if (placeholder) placeholder.style.display = 'none';
             container.innerHTML = '';
+
+            const titulo = document.createElement('div');
+            titulo.innerHTML = `<div class="flex items-center mb-4"><i class="fas fa-chart-line text-sage-500 mr-2"></i><h4 class="text-xl font-semibold text-gray-800">Preços de ${categoria}</h4></div>`;
             
-            // Criar iframe para o widget
             const iframe = document.createElement('iframe');
-            iframe.src = `https://www.noticiasagricolas.com.br/widgets/cotacoes?id=${id}&fonte=Arial%2C%20Helvetica%2C%20sans-serif&tamanho=10pt&largura=400px&cortexto=333333&corcabecalho=B2C3C6&corlinha=DCE7E9&imagem=true&output=html`;
+            iframe.src = `https://www.noticiasagricolas.com.br/widgets/cotacoes?id=${id}&fonte=Arial%2C%20Helvetica%2C%20sans-serif&tamanho=11pt&largura=100%&cortexto=374151&corcabecalho=f6f8f6&corlinha=e8f0e8&imagem=true&output=html`;
             iframe.width = '100%';
-            iframe.height = '400';
+            iframe.height = '350';
             iframe.frameBorder = '0';
             iframe.style.border = 'none';
-            iframe.style.borderRadius = '8px';
-            
-            // Adicionar iframe ao container
+            iframe.className = 'rounded-xl';
+
+            container.appendChild(titulo);
             container.appendChild(iframe);
-            
-            // Mostrar categoria selecionada
-            const titulo = document.createElement('h3');
-            titulo.textContent = `Preços de ${categoria}`;
-            titulo.style.marginBottom = '10px';
-            titulo.style.color = '#2e7d32';
-            container.insertBefore(titulo, iframe);
         }
+
+        // Add enter key support
+        document.getElementById('pergunta').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') enviarPergunta();
+        });
+
+        document.getElementById('termo-noticia').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') buscarNoticiasSentimento();
+        });
     </script>
 </body>
-</html> 
+</html>
